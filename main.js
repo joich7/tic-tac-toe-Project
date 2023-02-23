@@ -2,9 +2,24 @@ const main = document.getElementById("app");
 let state = {
     arr: ["","","","","","","","",""],
 
-    user: "1",
+    user: 1,
     
 }
+const winConditions = [
+    // horizontal win conditions
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+  
+    // vertical win conditions
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+  
+    // diagonal win conditions
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
 
 function selector(ElementId){
     return document.getElementById(ElementId)
@@ -23,13 +38,34 @@ function make(IdName, Location, elementType, className, content)  {     //functi
     location.appendChild(newElement)
 }
 
+function win() {
+    const userIndexes = state.arr.map((e, i) => e === state.user ? i : '').filter(String)
+    
 
+    for(condition of winConditions){  //selecting an array from windConditions  
+        let counter = 0;
+        for(num of condition){   //iterating over each value in selected array 
+           
+            if(userIndexes.includes(num) == true){
+                counter +=1;
+                console.log(counter)
+            }
+            
+        }
 
+        if(Boolean(counter == 3)){
+            alert(`player${state.user} won!!`)
+        }
+    }
 
+   
+}
 
-function buildBoard(){
+function buildBoard(){  //whats being updated on page 
     for(i in state.arr){
-        selector("paragraph").innerHTML = `It is player ${state.user}'s turn `
+     
+
+        selector("paragraph").innerHTML = `It is player ${state.user}'s turn ` //displays which users turn it is 
         const num = i;
         const newBox = document.createElement("div");
         newBox.setAttribute('id', `${i}`)
@@ -42,35 +78,37 @@ function buildBoard(){
         function addState(){
                     //change state and pushes current user to corressponding index 
                     state.arr[num] = state.user;
-                    if(state.user == "1"){
-                        state.arr[num] = "1"
-                        state.user = "2"
+                    if(state.user == 1){
+                        state.arr[num] = 1
+                        state.user = 2
                     }
-                    else if (state.user == "2"){
-                        state.arr[num] = "2"
-                        state.user = "1"
+                    else if (state.user == 2){
+                        state.arr[num] = 2
+                        state.user = 1
                     }
-               
+                    
                     selector("boardContRow").innerHTML= "";
                     buildBoard()
                 }
+
+        
        
-        if(state.arr[i] == ""){//add event listener to box if   
+        if(state.arr[i] == ""){//add event listener to box only if index is empty(not clicked) or if somebody has won (&& win == false)
                 newBox.addEventListener('click',()=> {
                     addState()
                 
                 })//need to add event listener with different function for current index
             }
-   
-        if(state.arr[num] != "") { //if box has content then it has been pushed and does not add event listener but instead adds x/o as feedback to players to indicate that the area has been pressed 
-            if(state.arr[num] == "1"){
+
+        if(state.arr[num] != "") { //if box has content do not add event listener but instead adds x/o as feedback to players to indicate that the area has been pressed 
+            if(state.arr[num] == 1){
                newBox.innerHTML = "X"
                 }
-            else if (state.arr[num] == "2"){
+            else if (state.arr[num] == 2){
                 newBox.innerHTML = "O"
                 }
         }
-      
+        
         selector("boardContRow").appendChild(newBox)
     }
     
@@ -78,7 +116,7 @@ function buildBoard(){
 
 function reset(){
     state.arr = ["","","","","","","","",""]
-    state.user = "1";
+    state.user = 1;
     selector("boardContRow").innerHTML= ""
 
     buildBoard()
