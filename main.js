@@ -39,13 +39,7 @@ function buildBoard(){
         ///win test 
         //if true execute 
         ////if flase execute bottom
-
-        
-
-        if(state.arr[i] == ""){//need to add or if game = won  
-                newBox.addEventListener('click',()=> {
-                    console.log(num)
-
+        function addState(){
                     //change state and pushes current user to corressponding index 
                     state.arr[num] = state.user;
                     if(state.user == "1"){
@@ -59,20 +53,27 @@ function buildBoard(){
                
                     selector("boardContRow").innerHTML= "";
                     buildBoard()
-                    
+                }
+       
+        if(state.arr[i] == ""){//add event listener to box if   
+                newBox.addEventListener('click',()=> {
+                    addState()
+                
                 })//need to add event listener with different function for current index
-        }
-
-        if(state.arr[num] != "" ){ //if box has content then it has been pushed and does not add event listener but instead adds x/o as feedback to players to indicate that the area has been pressed 
+            }
+   
+        if(state.arr[num] != "") { //if box has content then it has been pushed and does not add event listener but instead adds x/o as feedback to players to indicate that the area has been pressed 
             if(state.arr[num] == "1"){
                newBox.innerHTML = "X"
                 }
             else if (state.arr[num] == "2"){
                 newBox.innerHTML = "O"
-            }
+                }
         }
+      
         selector("boardContRow").appendChild(newBox)
     }
+    
 }
 
 function reset(){
