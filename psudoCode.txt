@@ -1,0 +1,124 @@
+Questions
+How do we only allow one button click per tile? 
+HTML/CSS
+Conditional rendering
+Is it an X in the square or a O
+Who wins? X or O or also if the Cat
+
+Atoms
+Tiles
+Using bootstrap on a div to make it .col-4
+
+Div.container
+	Div.row
+		div.col-4
+
+Organism
+Tiles - click events
+Board as whole
+Buttons (restart)
+
+
+Objectives
+The game should let the players know who's turn it is.
+Player x or player O
+Remove EventListeners
+Game tiles should only be clickable once
+if the game is over they should not be clickable at all.
+The game should display who wins the game if someone wins, otherwise, say that the game resulted in a tie.
+There should be a Restart Game button that does not refresh the page (set state).
+On each player’s turn, that player places one of their symbols on an unoccupied space by clicking.
+The game continues until one player places three symbols in a straight line (horizontal, vertical, or diagonal) and wins or there are no remaining available spaces and it is a draw.
+Only have a single <div id="app"></div> in your index.HTML (try to code golf the HTML file)
+
+
+Variables
+STATE 
+	currentPlayer
+	boardState = [] (NINE SPOTS)
+	winConditions
+		[0,1,2]
+		[3,4,5]
+		[6,7,8]
+	[0,3,6]
+		1,4,7
+		2,5,8
+		0,4,8
+		2,4,6
+	
+Question: 
+How do I store current user ? Have  a var called current user that stores current user
+ Should I store user array locations in array for user 1 & 2  or 
+What about scratch games/ties 
+
+
+
+Each box needs
+An eventlistener
+Unique id 
+Functions
+init()
+Parse through array and make event listener
+for (i in boardstate) 
+make new col-4 with id equal to ( `box${i}`)
+event listener(‘click’, func(boardstate[i] {      }
+if clicked, function stores current user in boardstate array index
+
+
+Event Listener when clicked must
+	-check current user
+	-change innerhtml of current box from “ ” to o/x dependent on user
+		-if current user is 1, switch to 2 
+		-if current user is 2, switch to 1 
+	-
+      - 	check	
+checkWin()
+Make new array based on board state that contains the indexes of current user’s x/o . Then compare that array to all the win conditions to see if its true 
+
+For (i in boardstate)
+if (boardstate[i] == current user )
+newArr += i
+for(i of winConditions)
+if(winCondition == newArr)
+
+
+	
+switchPlayer()
+If currentPlayer == ‘X’
+currentPlayer = ‘O’
+Else
+currentPlayer = ‘X’
+makeMove()
+Adds the current player to the tile clicked
+checkWin()
+If win do endGame()
+else
+Switches the currentPlayer in state
+Removes the eventListener
+endGame()
+Display the winner of the game
+Remove all event listeners
+Show reset game button
+
+resetGame()
+Drawboard
+Resets state to initial values
+Procedures
+
+INIT
+Draw the board with js
+make title and button
+render empty ttt board that matches the empty array 
+
+click square
+returns current user to index in state array of box clicked
+delete t-t-t board 
+check to see if someone has won (for of loop)
+Parse over each win condition and compare to board state for only current user
+If someone has won 
+Build Board with no event listeners
+Display user that won
+If all items in state array are filled with content display “tie”
+Else build board and switch user	
+
+
